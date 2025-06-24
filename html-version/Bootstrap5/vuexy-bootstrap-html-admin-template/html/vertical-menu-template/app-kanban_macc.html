@@ -1,0 +1,174 @@
+<!doctype html>
+<html
+  lang="en"
+  class="light-style layout-navbar-fixed layout-menu-fixed layout-compact"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../../assets/"
+  data-template="vertical-menu-template"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+    <title>Kanban - Apps | Vuexy</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="../../assets/vendor/fonts/fontawesome.css" />
+    <link rel="stylesheet" href="../../assets/vendor/fonts/tabler-icons.css" />
+    <link rel="stylesheet" href="../../assets/vendor/fonts/flag-icons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../../assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="../../assets/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="../../assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="../../assets/vendor/libs/node-waves/node-waves.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/jkanban/jkanban.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/flatpickr/flatpickr.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/quill/typography.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/quill/katex.css" />
+    <link rel="stylesheet" href="../../assets/vendor/libs/quill/editor.css" />
+
+    <!-- Page CSS -->
+    <link rel="stylesheet" href="../../assets/vendor/css/pages/app-kanban.css" />
+
+    <!-- Helpers -->
+    <script src="../../assets/vendor/js/helpers.js"></script>
+    <script src="../../assets/vendor/js/template-customizer.js"></script>
+    <script src="../../assets/js/config.js"></script>
+  </head>
+    <!-- Menu -->
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+          <div class="app-brand demo">
+            <a href="index.html" class="app-brand-link">
+              <span class="app-brand-logo demo">
+                <!-- Logo -->
+              </span>
+              <span class="app-brand-text demo menu-text fw-bold">Vuexy</span>
+            </a>
+            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+              <i class="ti menu-toggle-icon d-none d-xl-block ti-sm align-middle"></i>
+              <i class="ti ti-x d-block d-xl-none ti-sm align-middle"></i>
+            </a>
+          </div>
+          <div class="menu-inner-shadow"></div>
+          <!-- Menu Items -->
+          <ul class="menu-inner py-1">
+            <!-- Static Button -->
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-smart-home"></i>
+                <div data-i18n="Inicio">Inicio</div>
+              </a>
+            </li>
+            <!-- Dropdown Menu -->
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
+                <div data-i18n="Menus">Menus</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="layouts-collapsed-menu.html" class="menu-link">
+                    <div data-i18n="Collapsed menu">menu 1</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="layouts-content-navbar.html" class="menu-link">
+                    <div data-i18n="Content navbar">menu 2</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </aside>
+  <body>
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+          <div class="app-brand demo">
+            <a href="index.html" class="app-brand-link">
+              <span class="app-brand-logo demo">
+                <!-- Logo -->
+                <svg width="32" height="22" viewBox="0 0 32 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0v6.85s-.13 2.16 1.98 3.99L13.69 22l6.09-.08L18.8 9.88l-2.31-2.71L9.23 0H0z" fill="#7367F0"/>
+                  <path opacity="0.06" fill-rule="evenodd" clip-rule="evenodd" d="M7.7 16.44L12.52 3.24l4.03 4.02L7.7 16.44z" fill="#161616"/>
+                  <path opacity="0.06" fill-rule="evenodd" clip-rule="evenodd" d="M8.08 15.92L13.94 4.64l2.64 2.64L8.08 15.92z" fill="#161616"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M7.77 16.36L23.66 0H32v6.88s-.17 2.29-1.34 3.52L19.78 22H13.69L7.77 16.36z" fill="#7367F0"/>
+                </svg>
+              </span>
+              <span class="app-brand-text demo menu-text fw-bold">Vuexy</span>
+            </a>
+            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+              <i class="ti menu-toggle-icon d-none d-xl-block ti-sm align-middle"></i>
+              <i class="ti ti-x d-block d-xl-none ti-sm align-middle"></i>
+            </a>
+          </div>
+          <div class="menu-inner-shadow"></div>
+          <!-- Menu Items -->
+          <ul class="menu-inner py-1">
+            <!-- Static Button -->
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-smart-home"></i>
+                <div data-i18n="Inicio">Inicio</div>
+              </a>
+            </li>
+            <!-- Dropdown Menu -->
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
+                <div data-i18n="Menus">Menus</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="layouts-collapsed-menu.html" class="menu-link">
+                    <div data-i18n="Collapsed menu">menu 1</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="layouts-content-navbar.html" class="menu-link">
+                    <div data-i18n="Content navbar">menu 2</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../../assets/vendor/js/bootstrap.js"></script>
+    <script src="../../assets/vendor/libs/node-waves/node-waves.js"></script>
+    <script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../../assets/vendor/libs/hammer/hammer.js"></script>
+    <script src="../../assets/vendor/libs/i18n/i18n.js"></script>
+    <script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
+    <script src="../../assets/vendor/js/menu.js"></script>
+    <script src="../../assets/vendor/libs/moment/moment.js"></script>
+    <script src="../../assets/vendor/libs/flatpickr/flatpickr.js"></script>
+    <script src="../../assets/vendor/libs/select2/select2.js"></script>
+    <script src="../../assets/vendor/libs/jkanban/jkanban.js"></script>
+    <script src="../../assets/vendor/libs/quill/katex.js"></script>
+    <script src="../../assets/vendor/libs/quill/quill.js"></script>
+    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/app-kanban.js"></script>
+  </body>
+</html>
