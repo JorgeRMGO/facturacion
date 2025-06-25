@@ -7,7 +7,7 @@ $conexiontunel = new mysqli($host, $usuario, $contrasena, $basedatos, $puerto);
 $conexion = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
 if ($conexiontunel->connect_error) {
-    die(" Conexión por túnel fallida: " . $conexiontunel->connect_error);
+    die(" Conexión por túnel fallidaa: " . $conexiontunel->connect_error);
 }
 
 
