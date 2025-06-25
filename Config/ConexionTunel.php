@@ -1,6 +1,6 @@
 <?php
 $host = "127.0.0.1";   // Usas 127.0.0.1 si estás en el mismo server o usas túnel
-$puerto = 3306;        // O 3307 si estás usando un túnel SSH en ese puerto
+$puerto = 3307;        // O 3307 si estás usando un túnel SSH en ese puerto
 $usuario = "hikcentral";     // Cambia por tu user de la base
 $contrasena = "5GgAN7m65DRxuFgHMVun";  // Tu contraseña
 $basedatos = "employees";
