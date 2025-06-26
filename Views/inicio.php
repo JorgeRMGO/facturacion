@@ -3,7 +3,8 @@
     data-theme="theme-default" data-assets-path="../librerias/assets/" data-template="vertical-menu-template">
 <!-- header -->
 <?php require_once('header.php'); ?>
-<link rel="stylesheet" href="/librerias/assets/css/stiles.css">
+<link rel="stylesheet" href="../librerias/assets/css/styles.css">
+
 <!-- / header -->
 
 <body>
