@@ -171,73 +171,80 @@
         "retina_detect": true
       });
     });
-
-    async function login() {
-      const login_usuario = document.getElementById("login_usuario").value.trim();
-      const login_clave = document.getElementById("login_clave").value.trim();
-      
-      if (!login_usuario || !login_clave) {
+async function login() {
+    const login_usuario = document.getElementById("login_usuario").value.trim();
+    const login_clave = document.getElementById("login_clave").value.trim();
+    
+    if (!login_usuario || !login_clave) {
         Swal.fire({ 
-          title: "Campos requeridos", 
-          text: "Por favor ingresa tu usuario y contraseña", 
-          icon: "warning",
-          confirmButtonColor: "#f07d42"
+            title: "Campos requeridos", 
+            text: "Por favor ingresa tu usuario y contraseña", 
+            icon: "warning",
+            confirmButtonColor: "#f07d42"
         });
         return;
-      }
+    }
 
-      // para q se muestre el loading
-      Swal.fire({
+    Swal.fire({
         title: 'Iniciando sesión...',
         allowOutsideClick: false,
         didOpen: () => Swal.showLoading()
-      });
+    });
 
-      const formData = new URLSearchParams({ login_usuario, login_clave });
-      
-      try {
-        const response = await fetch("../Controllers/loginController.php?op=verficar", {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: formData
+    const formData = new URLSearchParams({
+        usuario: login_usuario,
+        password: login_clave
+    });
+    
+    try {
+        const response = await fetch("../Controllers/loginController.php?op=validar", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: formData
         });
 
-        if (!response.ok) {
-          const errorData = await response.json();
-          Swal.fire({ 
-            title: "Error", 
-            text: errorData.error || "Error de servidor", 
+        const text = await response.text(); // Obtener respuesta como texto para depuración
+        console.log("Respuesta del servidor:", text); // Mostrar en consola para depurar
+
+        try {
+            const data = JSON.parse(text); // Intentar parsear como JSON
+            if (data.status === 'success') {
+                Swal.fire({
+                    title: "¡Bienvenido!",
+                    text: data.message,
+                    icon: "success",
+                    confirmButtonColor: "#f07d42",
+                    timer: 1500
+                }).then(() => {
+                    window.location.href = "inicio.php";
+                });
+            } else {
+                Swal.fire({ 
+                    title: "Error", 
+                    text: data.message, 
+                    icon: "error",
+                    confirmButtonColor: "#f07d42"
+                });
+            }
+        } catch (jsonError) {
+            console.error("Error parseando JSON:", jsonError);
+            Swal.fire({ 
+                title: "Error", 
+                text: "Respuesta del servidor no válida: " + text, 
+                icon: "error",
+                confirmButtonColor: "#f07d42"
+            });
+        }
+    } catch (error) {
+        console.error("Error de conexión:", error);
+        Swal.fire({ 
+            title: "Error de conexión", 
+            text: "No se pudo conectar con el servidor: " + error.message, 
             icon: "error",
             confirmButtonColor: "#f07d42"
-          });
-          return;
-        }
-
-        const data = await response.json();
-        
-        localStorage.setItem("jwt_token", data.token);
-            //window.sessionData = { jwt_token: data.token };
-        
-        Swal.fire({
-          title: "¡Bienvenido!",
-          text: "Inicio de sesión exitoso",
-          icon: "success",
-          confirmButtonColor: "#f07d42",
-          timer: 1500
-        }).then(() => {
-          window.location.href = "inicio.php";
         });
-        
-      } catch (error) {
-        Swal.fire({ 
-          title: "Error de conexión", 
-          text: "No se pudo conectar con el servidor", 
-          icon: "error",
-          confirmButtonColor: "#f07d42"
-        });
-      }
     }
-
+}
     // Permitir login con Enter
     document.addEventListener('keypress', function(e) {
       if (e.key === 'Enter') {
