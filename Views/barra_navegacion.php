@@ -51,8 +51,17 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-medium d-block">John Doe</span>
-                            <small class="text-muted">Admin</small>
+                            <span class="fw-medium d-block"><?php echo $_SESSION['nombre_usuario'] ?? 'Usuario'; ?></span>
+                            <?php
+                            if (isset($_SESSION['roles']) && !empty(trim($_SESSION['roles']))) {
+                                $cadena = $_SESSION['roles'];
+                                $roles = explode(",", $cadena);
+                                $primerRol = trim($roles[0]);
+                                echo "<small class='text-muted'>$primerRol</small>";
+                            } else {
+                                echo "<small class='text-muted'>Sin rol</small>";
+                            }
+                            ?>
                           </div>
                         </div>
                       </a>
@@ -61,15 +70,15 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="pages-profile-user.html">
+                      <a class="dropdown-item" href="perfil.php">
                         <i class="ti ti-user-check me-2 ti-sm"></i>
-                        <span class="align-middle">My Profile</span>
+                        <span class="align-middle">Mi perfil</span>
                       </a>
                     </li>
                     <li>
                       <a class="dropdown-item" href="pages-account-settings-account.html">
                         <i class="ti ti-settings me-2 ti-sm"></i>
-                        <span class="align-middle">Settings</span>
+                        <span class="align-middle">Configuraciones</span>
                       </a>
                     </li>
                     <li>
@@ -78,7 +87,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="auth-login-cover.html" target="_blank">
+                      <a class="dropdown-item" href="../Controllers/loginController.php?op=logout">
                         <i class="ti ti-logout me-2 ti-sm"></i>
                         <span class="align-middle">Salir</span>
                       </a>
