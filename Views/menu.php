@@ -1,8 +1,8 @@
 <!-- menu.php -->
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
   <div class="app-brand demo">
-        <a href="index.html" class="app-brand-link">
-            <img src="https://reports.grupo-ortiz.site/Librerias/img/Logo.png" alt="Logo go" width="50" height="50"></center>
+        <a href="inicio.php" class="app-brand-link">
+            <center><img src="https://reports.grupo-ortiz.site/Librerias/img/Logo.png" alt="Logo go" width="50" height="50"></center>
             <span class="app-brand-text demo menu-text fw-bold">Facturacion</span>
         </a>
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
