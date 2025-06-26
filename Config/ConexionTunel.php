@@ -11,5 +11,5 @@ if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
-echo "🔥 Conectado con éxito a la base de datos";
+//echo "🔥 Conectado con éxito a la base de datos";
 ?>
