@@ -23,8 +23,27 @@
     <!-- Dropdown Menu -->
     <li class="menu-item">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons ti ti-user"></i>
+        <div data-i18n="Usuarios">Usuarios</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="layouts-collapsed-menu.html" class="menu-link">
+            <div data-i18n="Crear Usuario">Crear Usuario</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="layouts-content-navbar.html" class="menu-link">
+            <div data-i18n="Menu 2">menu 2</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <!-- Dropdown Menu -->
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
-        <div data-i18n="Menus">Menus</div>
+        <div data-i18n="Usuarios">Usuario</div>
       </a>
       <ul class="menu-sub">
         <li class="menu-item">
