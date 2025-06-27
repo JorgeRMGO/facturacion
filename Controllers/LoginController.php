@@ -5,17 +5,17 @@ require_once "../Controllers/token.php";
 
 $jwt_secret = "Mx2111or71zG0";
 
-header("Content-Type: application/json; charset=UTF-8");
+// NOTA: No ponemos header JSON global porque logout necesita redirección
+// Solo lo ponemos en el caso de login (validar)
 
 $login = new Login();
 $usuario = $_POST['usuario'] ?? '';
 $password = $_POST['password'] ?? '';
 
-// No llamar a protegerRuta() aquí porque para login no se requiere token
-
 switch ($_GET["op"]) {
 
     case 'validar':
+        header("Content-Type: application/json; charset=UTF-8"); // Solo para login
         // Login, sin token previo
         $tiempo_sesion = 60 * 60 * 24;
         ini_set('session.gc_maxlifetime', $tiempo_sesion);
@@ -57,10 +57,10 @@ switch ($_GET["op"]) {
         break;
 
     case 'someProtectedAction':
+        header("Content-Type: application/json; charset=UTF-8");
         // Aquí ya sí protegemos la ruta con token
         $userData = protegerRuta();  // Esto bloquea si no hay token válido
 
-        // Continúa con el resto de la lógica sabiendo que $userData es el usuario autorizado
         echo json_encode([
             'status' => 'success',
             'message' => 'Acceso autorizado',
@@ -69,6 +69,7 @@ switch ($_GET["op"]) {
         break;
 
     case 'salir':
+        // Logout SIN encabezados JSON para permitir redirección
         session_start();
         $_SESSION = array();
         if (ini_get("session.use_cookies")) {
@@ -84,11 +85,13 @@ switch ($_GET["op"]) {
             );
         }
         session_destroy();
+
         header("Location: ../Views/login.php");
         exit;
         break;
 
     default:
+        header("Content-Type: application/json; charset=UTF-8");
         echo json_encode([
             'status' => 'error',
             'message' => 'Operación no válida',
