@@ -33,12 +33,14 @@ if (!isset($_SESSION['usuario_id'])) {
                 <div class="content-wrapper">
                     <!-- Content -->
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="py-3 mb-4 welcome-message">
-                            <div class="welcome-container py-3 mb-4">
-                                <span class="welcome-text">Bienvenido</span>
-                                <span class="welcome-emoji">&#x1F44B;</span>
-                                <span class="welcome-username"><?php echo htmlspecialchars($_SESSION['empleado']); ?></span>
-                            </div>
+                        <div class="py-3 mb-4 welcome-message">
+                            <h4>
+                                <div class="welcome-container py-3 mb-4">
+                                    <span class="welcome-text">Bienvenido</span>
+                                    <span class="welcome-emoji">&#x1F44B;</span>
+                                    <span class="welcome-username"><?php echo htmlspecialchars($_SESSION['empleado']); ?></span>
+                                </div>
+                            </h4>
                             <div class="app-billing">
                                 <!-- Banner Principal -->
                                 <div class="card p-0 mb-4">
@@ -69,6 +71,29 @@ if (!isset($_SESSION['usuario_id'])) {
                                         </div>
                                     </div>
                                 </div>
+                                <!-- Usuarios en línea -->
+                                <div class="row gy-4 mb-4">
+                                    <div class="col-lg-6">
+                                        <div class="card card-border-shadow-success text-center">
+                                            <div class="card-body">
+                                                <h5 class="card-title mb-1">Usuarios en línea</h5>
+                                                <h4 id="usuariosEnLinea" class="mb-0 text-success">...</h4>
+                                                <small class="text-muted">En este momento</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Hora actual -->
+                                    <div class="col-lg-6">
+                                        <div class="card card-border-shadow-info text-center">
+                                            <div class="card-body">
+                                                <h5 class="card-title mb-1">Hora actual</h5>
+                                                <h4 id="horaActual" class="mb-0 text-info"></h4>
+                                                <small id="fechaActual" class="text-muted"></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
 
                                 <!-- Funcionalidades Principales -->
                                 <div class="row gy-4 mb-4">
@@ -160,26 +185,26 @@ if (!isset($_SESSION['usuario_id'])) {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <!-- / Content -->
                     </div>
-                    <!-- / Content -->
+                    <!-- / Content wrapper -->
+                    <!-- Footer -->
+                    <?php require_once('footer.php'); ?>
+                    <!-- / Footer -->
+
+                    <div class="content-backdrop fade"></div>
                 </div>
-                <!-- / Content wrapper -->
-                <!-- Footer -->
-                <?php require_once('footer.php'); ?>
-                <!-- / Footer -->
-
-                <div class="content-backdrop fade"></div>
+                <!-- Content wrapper -->
             </div>
-            <!-- Content wrapper -->
+            <!-- / Layout page -->
         </div>
-        <!-- / Layout page -->
-    </div>
 
-    <!-- Overlay -->
-    <div class="layout-overlay layout-menu-toggle"></div>
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
 
-    <!-- Drag Target Area To SlideIn Menu On Small Screens -->
-    <div class="drag-target"></div>
+        <!-- Drag Target Area To SlideIn Menu On Small Screens -->
+        <div class="drag-target"></div>
     </div>
     <!-- / Layout wrapper -->
     <!-- Core JS -->
@@ -268,7 +293,42 @@ if (!isset($_SESSION['usuario_id'])) {
             "retina_detect": true
         });
     </script>
+    <script>
+        function actualizarHora() {
+            const ahora = new Date();
+            const opcionesFecha = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+            document.getElementById("horaActual").textContent = ahora.toLocaleTimeString('es-MX');
+            document.getElementById("fechaActual").textContent = ahora.toLocaleDateString('es-MX', opcionesFecha);
+        }
+        setInterval(actualizarHora, 1000);
+        actualizarHora();
+
+
+        function actualizarActividad() {
+            fetch('../online_users/actualizar_actividad.php', {
+                    method: 'POST'
+                })
+                .then(() => fetch('../online_users/usuarios_online.php'))
+                .then(response => response.text())
+                .then(cantidad => {
+                    document.getElementById('usuariosEnLinea').textContent = cantidad;
+                })
+                .catch(console.error);
+        }
+
+
+        // Actualizar actividad y usuarios en línea cada 30 segundos
+        actualizarActividad();
+        setInterval(actualizarActividad, 30000);
+    </script>
+
 
 </body>
+
 
 </html>
