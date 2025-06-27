@@ -1,4 +1,4 @@
- <!doctype html>
+<!doctype html>
 <html lang="es" class="light-style layout-wide customizer-hide" dir="ltr" data-theme="theme-default">
 
 <head>
@@ -10,10 +10,10 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
   <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/js/all.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="../librerias/assets/css/styles.css">
- 
+
 </head>
 
 <body>
@@ -66,6 +66,9 @@
   <script>
     let modeloCargado = false;
     
+    // URL de tu API de backend Node.js
+    const API_LOGIN_URL = 'http://localhost:3000/api/login'; 
+
     // Inicializa efec de las pinches particulas 
     document.addEventListener('DOMContentLoaded', function() {
       particlesJS('particles-js', {
@@ -173,10 +176,10 @@
     });
 
     async function login() {
-      const login_usuario = document.getElementById("login_usuario").value.trim();
-      const login_clave = document.getElementById("login_clave").value.trim();
+      const username = document.getElementById("login_usuario").value.trim();
+      const password = document.getElementById("login_clave").value.trim();
       
-      if (!login_usuario || !login_clave) {
+      if (!username || !password) {
         Swal.fire({ 
           title: "Campos requeridos", 
           text: "Por favor ingresa tu usuario y contraseña", 
@@ -186,27 +189,25 @@
         return;
       }
 
-      // para q se muestre el loading
       Swal.fire({
         title: 'Iniciando sesión...',
         allowOutsideClick: false,
         didOpen: () => Swal.showLoading()
       });
-
-      const formData = new URLSearchParams({ login_usuario, login_clave });
       
       try {
-        const response = await fetch("../Controllers/loginController.php?op=verficar", {
+        const response = await fetch(API_LOGIN_URL, {
           method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: formData
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password })
         });
 
         if (!response.ok) {
           const errorData = await response.json();
+          Swal.close();
           Swal.fire({ 
-            title: "Error", 
-            text: errorData.error || "Error de servidor", 
+            title: "Error de inicio de sesión",
+            text: errorData.message || "Credenciales incorrectas o error de servidor",
             icon: "error",
             confirmButtonColor: "#f07d42"
           });
@@ -216,29 +217,31 @@
         const data = await response.json();
         
         localStorage.setItem("jwt_token", data.token);
-            //window.sessionData = { jwt_token: data.token };
         
+        Swal.close();
         Swal.fire({
           title: "¡Bienvenido!",
-          text: "Inicio de sesión exitoso",
+          text: data.message || "Inicio de sesión exitoso",
           icon: "success",
           confirmButtonColor: "#f07d42",
           timer: 1500
         }).then(() => {
-          window.location.href = "inicio.php";
+          // Redirige a tu página de inicio después del login exitoso
+          window.location.href = "inicio.php"; 
         });
         
       } catch (error) {
+        console.error("Error al conectar con el servidor Node.js:", error);
+        Swal.close();
         Swal.fire({ 
           title: "Error de conexión", 
-          text: "No se pudo conectar con el servidor", 
+          text: "No se pudo conectar con el servidor Node.js. Asegúrate de que esté corriendo.", 
           icon: "error",
           confirmButtonColor: "#f07d42"
         });
       }
     }
 
-    // Permitir login con Enter
     document.addEventListener('keypress', function(e) {
       if (e.key === 'Enter') {
         login();
