@@ -33,132 +33,133 @@ if (!isset($_SESSION['usuario_id'])) {
                 <div class="content-wrapper">
                     <!-- Content -->
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <div class="welcome-container py-3 mb-4">
-                            <span class="welcome-text">Bienvenido</span>
-                            <span class="welcome-emoji">&#x1F44B;</span>
-                            <span class="welcome-username"><?php echo htmlspecialchars($_SESSION['empleado']); ?></span>
-                        </div>
-                        <div class="app-billing">
-                            <!-- Banner Principal -->
-                            <div class="card p-0 mb-4">
-                                <div class="card-body d-flex flex-column flex-md-row justify-content-between p-0 pt-4">
-                                    <div class="app-billing-md-25 card-body py-0">
-                                        <img src="../librerias/assets/img/illustrations/bulb-light.png"
-                                            class="img-fluid app-billing-img-height scaleX-n1-rtl" alt="Invoice icon"
-                                            data-app-light-img="illustrations/bulb-light.png"
-                                            data-app-dark-img="illustrations/bulb-dark.png" height="90" />
-                                    </div>
-                                    <div class="app-billing-md-50 card-body d-flex align-items-md-center flex-column text-md-center">
-                                        <h3 class="card-title mb-4 lh-sm px-md-5 lh-lg">
-                                            Simplifica tu Gestión de Facturación
-                                            <span class="text-primary fw-medium text-nowrap">con Nuestra Plataforma</span>
-                                        </h3>
-                                        <p class="mb-3">
-                                            Crea, gestiona y controla tus facturas de manera rápida y eficiente. Todo lo que necesitas para tus finanzas en un solo lugar.
-                                        </p>
-                                        <div class="d-flex align-items-center justify-content-between app-billing-md-80">
-                                            <input type="search" placeholder="Buscar factura por número o cliente" class="form-control me-2" />
-                                            <button type="submit" class="btn btn-primary btn-icon"><i class="ti ti-search"></i></button>
-                                        </div>
-                                        <a href="create-invoice.php" class="btn btn-primary mt-3">Crear mi Primera Factura</a>
-                                    </div>
-                                    <div class="app-billing-md-25 d-flex align-items-end justify-content-end">
-                                        <img src="../librerias/assets/img/illustrations/pencil-rocket.png"
-                                            alt="money rocket" height="188" class="scaleX-n1-rtl" />
-                                    </div>
-                                </div>
+                        <h4 class="py-3 mb-4 welcome-message">
+                            <div class="welcome-container py-3 mb-4">
+                                <span class="welcome-text">Bienvenido</span>
+                                <span class="welcome-emoji">&#x1F44B;</span>
+                                <span class="welcome-username"><?php echo htmlspecialchars($_SESSION['empleado']); ?></span>
                             </div>
-
-                            <!-- Funcionalidades Principales -->
-                            <div class="row gy-4 mb-4">
-                                <div class="col-lg-6">
-                                    <div class="card bg-label-primary h-100">
-                                        <div class="card-body d-flex justify-content-between flex-wrap-reverse">
-                                            <div class="mb-0 w-100 app-billing-sm-60 d-flex flex-column justify-content-between text-center text-sm-start">
-                                                <div class="card-title">
-                                                    <h4 class="text-primary mb-2">Crear y Gestionar Facturas</h4>
-                                                    <p class="text-body w-sm-80 app-billing-xl-100">
-                                                        Genera facturas profesionales en minutos y mantén un seguimiento de tus pagos.
-                                                    </p>
-                                                </div>
-                                                <div class="mb-0">
-                                                    <a href="create-invoice.php" class="btn btn-primary">Crear Factura</a>
-                                                </div>
+                            <div class="app-billing">
+                                <!-- Banner Principal -->
+                                <div class="card p-0 mb-4">
+                                    <div class="card-body d-flex flex-column flex-md-row justify-content-between p-0 pt-4">
+                                        <div class="app-billing-md-25 card-body py-0">
+                                            <img src="../librerias/assets/img/illustrations/bulb-light.png"
+                                                class="img-fluid app-billing-img-height scaleX-n1-rtl" alt="Invoice icon"
+                                                data-app-light-img="illustrations/bulb-light.png"
+                                                data-app-dark-img="illustrations/bulb-dark.png" height="90" />
+                                        </div>
+                                        <div class="app-billing-md-50 card-body d-flex align-items-md-center flex-column text-md-center">
+                                            <h3 class="card-title mb-4 lh-sm px-md-5 lh-lg">
+                                                Simplifica tu Gestión de Facturación
+                                                <span class="text-primary fw-medium text-nowrap">con Nuestra Plataforma</span>
+                                            </h3>
+                                            <p class="mb-3">
+                                                Crea, gestiona y controla tus facturas de manera rápida y eficiente. Todo lo que necesitas para tus finanzas en un solo lugar.
+                                            </p>
+                                            <div class="d-flex align-items-center justify-content-between app-billing-md-80">
+                                                <input type="search" placeholder="Buscar factura por número o cliente" class="form-control me-2" />
+                                                <button type="submit" class="btn btn-primary btn-icon"><i class="ti ti-search"></i></button>
                                             </div>
-                                            <div class="w-100 app-billing-sm-40 d-flex justify-content-center justify-content-sm-end h-px-150 mb-3 mb-sm-0">
-                                                <img class="img-fluid scaleX-n1-rtl"
-                                                    src="../librerias/assets/img/illustrations/boy-app-academy.png"
-                                                    alt="create invoice illustration" />
-                                            </div>
+                                            <a href="create-invoice.php" class="btn btn-primary mt-3">Crear mi Primera Factura</a>
+                                        </div>
+                                        <div class="app-billing-md-25 d-flex align-items-end justify-content-end">
+                                            <img src="../librerias/assets/img/illustrations/pencil-rocket.png"
+                                                alt="money rocket" height="188" class="scaleX-n1-rtl" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="card bg-label-success h-100">
-                                        <div class="card-body d-flex justify-content-between flex-wrap-reverse">
-                                            <div class="mb-0 w-100 app-billing-sm-60 d-flex flex-column justify-content-between text-center text-sm-start">
-                                                <div class="card-title">
-                                                    <h4 class="text-success mb-2">Resumen Financiero</h4>
-                                                    <p class="text-body app-billing-sm-60 app-billing-xl-100">
-                                                        Visualiza tus ingresos, facturas pendientes y pagos en un solo lugar.
-                                                    </p>
+
+                                <!-- Funcionalidades Principales -->
+                                <div class="row gy-4 mb-4">
+                                    <div class="col-lg-6">
+                                        <div class="card bg-label-primary h-100">
+                                            <div class="card-body d-flex justify-content-between flex-wrap-reverse">
+                                                <div class="mb-0 w-100 app-billing-sm-60 d-flex flex-column justify-content-between text-center text-sm-start">
+                                                    <div class="card-title">
+                                                        <h4 class="text-primary mb-2">Crear y Gestionar Facturas</h4>
+                                                        <p class="text-body w-sm-80 app-billing-xl-100">
+                                                            Genera facturas profesionales en minutos y mantén un seguimiento de tus pagos.
+                                                        </p>
+                                                    </div>
+                                                    <div class="mb-0">
+                                                        <a href="create-invoice.php" class="btn btn-primary">Crear Factura</a>
+                                                    </div>
                                                 </div>
-                                                <div class="mb-0">
-                                                    <a href="billing-summary.php" class="btn btn-success">Ver Resumen</a>
+                                                <div class="w-100 app-billing-sm-40 d-flex justify-content-center justify-content-sm-end h-px-150 mb-3 mb-sm-0">
+                                                    <img class="img-fluid scaleX-n1-rtl"
+                                                        src="../librerias/assets/img/illustrations/boy-app-academy.png"
+                                                        alt="create invoice illustration" />
                                                 </div>
                                             </div>
-                                            <div class="w-100 app-billing-sm-40 d-flex justify-content-center justify-content-sm-end h-px-150 mb-3 mb-sm-0">
-                                                <img class="img-fluid scaleX-n1-rtl"
-                                                    src="../librerias/assets/img/illustrations/girl-app-academy.png"
-                                                    alt="billing summary illustration" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="card bg-label-success h-100">
+                                            <div class="card-body d-flex justify-content-between flex-wrap-reverse">
+                                                <div class="mb-0 w-100 app-billing-sm-60 d-flex flex-column justify-content-between text-center text-sm-start">
+                                                    <div class="card-title">
+                                                        <h4 class="text-success mb-2">Resumen Financiero</h4>
+                                                        <p class="text-body app-billing-sm-60 app-billing-xl-100">
+                                                            Visualiza tus ingresos, facturas pendientes y pagos en un solo lugar.
+                                                        </p>
+                                                    </div>
+                                                    <div class="mb-0">
+                                                        <a href="billing-summary.php" class="btn btn-success">Ver Resumen</a>
+                                                    </div>
+                                                </div>
+                                                <div class="w-100 app-billing-sm-40 d-flex justify-content-center justify-content-sm-end h-px-150 mb-3 mb-sm-0">
+                                                    <img class="img-fluid scaleX-n1-rtl"
+                                                        src="../librerias/assets/img/illustrations/girl-app-academy.png"
+                                                        alt="billing summary illustration" />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Estadísticas Rápidas -->
-                            <div class="card mb-4">
-                                <div class="card-body row gy-4">
-                                    <div class="col-sm-6 col-lg-4 text-center">
-                                        <span class="badge bg-label-primary p-2 mb-3"><i class="ti ti-file-invoice ti-lg"></i></span>
-                                        <h3 class="card-title mb-2">Facturas Pendientes</h3>
-                                        <p class="card-text mb-4">
-                                            <span class="fw-bold">facturas</span> están esperando tu atención.
-                                        </p>
-                                        <a href="invoices.php?filter=pending" class="btn btn-primary">Ver Facturas</a>
+                                <!-- Estadísticas Rápidas -->
+                                <div class="card mb-4">
+                                    <div class="card-body row gy-4">
+                                        <div class="col-sm-6 col-lg-4 text-center">
+                                            <span class="badge bg-label-primary p-2 mb-3"><i class="ti ti-file-invoice ti-lg"></i></span>
+                                            <h3 class="card-title mb-2">Facturas Pendientes</h3>
+                                            <p class="card-text mb-4">
+                                                <span class="fw-bold">facturas</span> están esperando tu atención.
+                                            </p>
+                                            <a href="invoices.php?filter=pending" class="btn btn-primary">Ver Facturas</a>
+                                        </div>
+                                        <div class="col-sm-6 col-lg-4 text-center">
+                                            <span class="badge bg-label-success p-2 mb-3"><i class="ti ti-currency-dollar ti-lg"></i></span>
+                                            <h3 class="card-title mb-2">Total Facturado</h3>
+                                            <p class="card-text mb-4">
+                                                <span class="fw-bold">$</span> facturados este mes.
+                                            </p>
+                                            <a href="billing-summary.php" class="btn btn-success">Ver Detalles</a>
+                                        </div>
+                                        <div class="col-sm-6 col-lg-4 text-center">
+                                            <span class="badge bg-label-info p-2 mb-3"><i class="ti ti-checks ti-lg"></i></span>
+                                            <h3 class="card-title mb-2">Pagos Recibidos</h3>
+                                            <p class="card-text mb-4">
+                                                <span class="fw-bold">10</span> recibidos con éxito.
+                                            </p>
+                                            <a href="invoices.php?filter=paid" class="btn btn-info">Ver Pagos</a>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-6 col-lg-4 text-center">
-                                        <span class="badge bg-label-success p-2 mb-3"><i class="ti ti-currency-dollar ti-lg"></i></span>
-                                        <h3 class="card-title mb-2">Total Facturado</h3>
+                                </div>
+
+                                <!-- Llamada a la Acción Final -->
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <h3 class="card-title mb-3">¿Listo para Optimizar tu Facturación?</h3>
                                         <p class="card-text mb-4">
-                                            <span class="fw-bold">$</span> facturados este mes.
+                                            Comienza ahora y descubre cómo nuestra plataforma puede ayudarte a gestionar tus finanzas de manera eficiente.
                                         </p>
-                                        <a href="billing-summary.php" class="btn btn-success">Ver Detalles</a>
-                                    </div>
-                                    <div class="col-sm-6 col-lg-4 text-center">
-                                        <span class="badge bg-label-info p-2 mb-3"><i class="ti ti-checks ti-lg"></i></span>
-                                        <h3 class="card-title mb-2">Pagos Recibidos</h3>
-                                        <p class="card-text mb-4">
-                                            <span class="fw-bold">10</span> recibidos con éxito.
-                                        </p>
-                                        <a href="invoices.php?filter=paid" class="btn btn-info">Ver Pagos</a>
+                                        <a href="create-invoice.php" class="btn btn-primary btn-lg">Comenzar Ahora</a>
+                                        <a href="tutorial.php" class="btn btn-label-secondary ms-2">Ver Tutorial</a>
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Llamada a la Acción Final -->
-                            <div class="card">
-                                <div class="card-body text-center">
-                                    <h3 class="card-title mb-3">¿Listo para Optimizar tu Facturación?</h3>
-                                    <p class="card-text mb-4">
-                                        Comienza ahora y descubre cómo nuestra plataforma puede ayudarte a gestionar tus finanzas de manera eficiente.
-                                    </p>
-                                    <a href="create-invoice.php" class="btn btn-primary btn-lg">Comenzar Ahora</a>
-                                    <a href="tutorial.php" class="btn btn-label-secondary ms-2">Ver Tutorial</a>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <!-- / Content -->
                 </div>
