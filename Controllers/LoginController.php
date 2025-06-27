@@ -1,7 +1,7 @@
 <?php
 ob_start();
 require_once "../Models/Login.php";
-require_once "../Controllers/token.php";
+require_once "../Controllers/token.php"; // ¡Asegúrate de que esta ruta sea correcta!
 
 $jwt_secret = "Mx2111or71zG0";
 
@@ -11,12 +11,9 @@ $login = new Login();
 $usuario = $_POST['usuario'] ?? '';
 $password = $_POST['password'] ?? '';
 
-// No llamar a protegerRuta() aquí porque para login no se requiere token
-
 switch ($_GET["op"]) {
 
     case 'validar':
-        // Login, sin token previo
         $tiempo_sesion = 60 * 60 * 24;
         ini_set('session.gc_maxlifetime', $tiempo_sesion);
         ini_set('session.cookie_lifetime', $tiempo_sesion);
@@ -27,18 +24,28 @@ switch ($_GET["op"]) {
 
         if ($rspta !== 404) {
             if (password_verify($password, $rspta['password'])) {
-                $_SESSION['usuario_id'] = $rspta['id'];
-                $_SESSION['usuario'] = $rspta['username'];
-                $_SESSION['nombre_usuario'] = $rspta['name'];
-                $_SESSION['id_empleado'] = $rspta['id_empleado'];
-                $_SESSION['empleado'] = $rspta['empleado'];
-                $_SESSION['id_planta'] = $rspta['branch_office_id'];
-                $_SESSION['rol'] = $rspta['rol'];
+                $userDataForToken = [
+                    'id' => $rspta['id'],
+                    'username' => $rspta['username'],
+                    'nombre_usuario' => $rspta['name'],
+                    'id_empleado' => $rspta['id_empleado'],
+                    'empleado' => $rspta['empleado'],
+                    'id_planta' => $rspta['branch_office_id'],
+                    'rol' => $rspta['rol']
+                ];
+
+                $jwt = generarToken($userDataForToken, $jwt_secret);
 
                 echo json_encode([
                     'status' => 'success',
                     'message' => 'Inicio de sesión exitoso',
-                    'code' => 200
+                    'code' => 200,
+                    'token' => $jwt,
+                    'user' => [
+                        'username' => $rspta['username'],
+                        'nombre' => $rspta['name'],
+                        'rol' => $rspta['rol']
+                    ]
                 ]);
             } else {
                 echo json_encode([
@@ -57,14 +64,13 @@ switch ($_GET["op"]) {
         break;
 
     case 'someProtectedAction':
-        // Aquí ya sí protegemos la ruta con token
-        $userData = protegerRuta();  // Esto bloquea si no hay token válido
+        $userData = protegerRuta(); 
 
-        // Continúa con el resto de la lógica sabiendo que $userData es el usuario autorizado
         echo json_encode([
             'status' => 'success',
-            'message' => 'Acceso autorizado',
-            'usuario' => $userData
+            'message' => 'Acceso autorizado a la acción protegida',
+            'usuario_del_token' => $userData,
+            'recurso_protegido_ejemplo' => 'Aquí va la información o acción que solo usuarios con token pueden ver/hacer.'
         ]);
         break;
 
