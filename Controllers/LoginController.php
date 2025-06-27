@@ -1,21 +1,22 @@
 <?php
-// Evitar cualquier salida no deseada
 ob_start();
 require_once "../Models/Login.php";
+require_once "../Controllers/token.php";
 
-// Establecer encabezado JSON
+$jwt_secret = "Mx2111or71zG0";
+
 header("Content-Type: application/json; charset=UTF-8");
 
 $login = new Login();
-$usuario = isset($_POST['usuario']) ? $_POST['usuario'] : '';
-$password = isset($_POST['password']) ? $_POST['password'] : '';
+$usuario = $_POST['usuario'] ?? '';
+$password = $_POST['password'] ?? '';
 
-// Habilitar reporte de errores para depuración (temporalmente)
-ini_set('display_errors', 0);
-error_reporting(E_ALL);
+// No llamar a protegerRuta() aquí porque para login no se requiere token
 
 switch ($_GET["op"]) {
+
     case 'validar':
+        // Login, sin token previo
         $tiempo_sesion = 60 * 60 * 24;
         ini_set('session.gc_maxlifetime', $tiempo_sesion);
         ini_set('session.cookie_lifetime', $tiempo_sesion);
@@ -55,6 +56,18 @@ switch ($_GET["op"]) {
         }
         break;
 
+    case 'someProtectedAction':
+        // Aquí ya sí protegemos la ruta con token
+        $userData = protegerRuta();  // Esto bloquea si no hay token válido
+
+        // Continúa con el resto de la lógica sabiendo que $userData es el usuario autorizado
+        echo json_encode([
+            'status' => 'success',
+            'message' => 'Acceso autorizado',
+            'usuario' => $userData
+        ]);
+        break;
+
     case 'salir':
         session_start();
         $_SESSION = array();
@@ -84,6 +97,5 @@ switch ($_GET["op"]) {
         break;
 }
 
-// Limpiar cualquier salida previa
 ob_end_flush();
 ?>
