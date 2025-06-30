@@ -20,9 +20,9 @@ if (!isset($_SESSION['usuario_id'])) {
                 <?php require_once('barra_navegacion.php'); ?>
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <div class="py-3 mb-4 welcome-message">
+                        <div class="py-3 mb-2 welcome-message">
                             <h4>
-                                <div class="welcome-container py-3 mb-4">
+                                <div class="welcome-container py-2 mb-4">
                                     <span class="welcome-text">Bienvenido</span>
                                     <span class="welcome-emoji">&#x1F44B;</span>
                                     <span class="welcome-username"><?php echo htmlspecialchars($_SESSION['empleado']); ?></span>
@@ -39,12 +39,10 @@ if (!isset($_SESSION['usuario_id'])) {
                                         </div>
                                         <div class="app-billing-md-50 card-body d-flex align-items-md-center flex-column text-md-center">
                                             <h3 class="card-title mb-4 lh-sm px-md-5 lh-lg">
-                                                Simplifica tu Gestión de Facturación
-                                                <span class="text-primary fw-medium text-nowrap">con Nuestra Plataforma</span>
+                                                Simplifica tu Gestión con
+                                                <span class="text-primary fw-medium text-nowrap">Facturación GO</span>
                                             </h3>
-                                            <p class="mb-3">
-                                                Crea, gestiona y controla tus facturas de manera rápida y eficiente. Todo lo que necesitas para tus finanzas en un solo lugar.
-                                            </p>
+                                            
                                             <div class="d-flex align-items-center justify-content-between app-billing-md-80">
                                                 <input type="search" placeholder="Buscar factura por número o cliente" class="form-control me-2" />
                                                 <button type="submit" class="btn btn-primary btn-icon"><i class="ti ti-search"></i></button>
@@ -131,25 +129,16 @@ if (!isset($_SESSION['usuario_id'])) {
                                         <div class="col-sm-6 col-lg-4 text-center">
                                             <span class="badge bg-label-primary p-2 mb-3"><i class="ti ti-file-invoice ti-lg"></i></span>
                                             <h3 class="card-title mb-2">Facturas Pendientes</h3>
-                                            <p class="card-text mb-4">
-                                                <span class="fw-bold">facturas</span> están esperando tu atención.
-                                            </p>
                                             <a href="invoices.php?filter=pending" class="btn btn-primary">Ver Facturas</a>
                                         </div>
                                         <div class="col-sm-6 col-lg-4 text-center">
                                             <span class="badge bg-label-success p-2 mb-3"><i class="ti ti-currency-dollar ti-lg"></i></span>
                                             <h3 class="card-title mb-2">Total Facturado</h3>
-                                            <p class="card-text mb-4">
-                                                <span class="fw-bold">$</span> facturados este mes.
-                                            </p>
                                             <a href="billing-summary.php" class="btn btn-success">Ver Detalles</a>
                                         </div>
                                         <div class="col-sm-6 col-lg-4 text-center">
                                             <span class="badge bg-label-info p-2 mb-3"><i class="ti ti-checks ti-lg"></i></span>
                                             <h3 class="card-title mb-2">Pagos Recibidos</h3>
-                                            <p class="card-text mb-4">
-                                                <span class="fw-bold">10</span> recibidos con éxito.
-                                            </p>
                                             <a href="invoices.php?filter=paid" class="btn btn-info">Ver Pagos</a>
                                         </div>
                                     </div>
@@ -162,7 +151,6 @@ if (!isset($_SESSION['usuario_id'])) {
                                             Comienza ahora y descubre cómo nuestra plataforma puede ayudarte a gestionar tus finanzas de manera eficiente.
                                         </p>
                                         <a href="create-invoice.php" class="btn btn-primary btn-lg">Comenzar Ahora</a>
-                                        <a href="tutorial.php" class="btn btn-label-secondary ms-2">Ver Tutorial</a>
                                     </div>
                                 </div>
                             </div>

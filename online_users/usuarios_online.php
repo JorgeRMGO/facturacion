@@ -1,5 +1,5 @@
 <?php
-$directorio = __DIR__ . "/"; // porque ya estás en online_users/
+$directorio = __DIR__ . "/"; 
 $archivos = glob($directorio . "online_*.json");
 
 $usuarios_en_linea = 0;
