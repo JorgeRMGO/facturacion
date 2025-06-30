@@ -20,7 +20,6 @@ if (!isset($_SESSION['usuario_id'])) {
     <link rel="stylesheet" href="../librerias/assets/vendor/fonts/tabler-icons.css" />
     <link rel="stylesheet" href="../librerias/assets/css/styles.css">
 
-    <!-- Header adicional si lo tienes -->
     <?php require_once('header.php'); ?>
 </head>
 <body>
@@ -82,27 +81,27 @@ if (!isset($_SESSION['usuario_id'])) {
                                 <div class="modal-body">
                                     <form id="createUserForm">
                                         <div class="mb-3">
-                                            <label for="name" class="form-label">Nombre *</label>
+                                            <label for="name" class="form-label">Nombre</label>
                                             <input type="text" class="form-control" id="name" name="name" required>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="username" class="form-label">Usuario *</label>
+                                            <label for="username" class="form-label">Usuario</label>
                                             <input type="text" class="form-control" id="username" name="username" required>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="employee_code" class="form-label">Clave Empleado *</label>
-                                            <input type="text" class="form-control" id="employee_code" name="employee_code" required>
+                                            <label for="employee_code" class="form-label">Clave Empleado</label>
+                                            <input type="number" class="form-control" id="employee_code" name="employee_code" required>
                                         </div>
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Correo electrónico</label>
                                             <input type="email" class="form-control" id="email" name="email">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="password" class="form-label">Contraseña *</label>
+                                            <label for="password" class="form-label">Contraseña</label>
                                             <input type="password" class="form-control" id="password" name="password" required>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="confirm_password" class="form-label">Confirmación de contraseña *</label>
+                                            <label for="confirm_password" class="form-label">Confirmación de contraseña</label>
                                             <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
                                         </div>
                                     </form>
@@ -147,12 +146,11 @@ if (!isset($_SESSION['usuario_id'])) {
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirm_password').value;
 
-            // Validar que las contraseñas coincidan
             if (password !== confirmPassword) {
                 alert('Las contraseñas no coinciden');
                 return;
             }
-
+            
             if (form.checkValidity()) {
                 const formData = new FormData(form);
                 fetch('crear_usuario.php', {

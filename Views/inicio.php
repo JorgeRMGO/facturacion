@@ -12,7 +12,7 @@ if (!isset($_SESSION['usuario_id'])) {
 <?php require_once('header.php'); ?>
 <link rel="stylesheet" href="../librerias/assets/css/styles.css">
 
-<!-- / header -->
+<!--header -->
 
 <body>
     <div id="particles-js"></div>
