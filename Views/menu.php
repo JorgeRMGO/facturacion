@@ -52,8 +52,8 @@
       </a>
       <ul class="menu-sub">
         <li class="menu-item">
-          <a href="layouts-collapsed-menu.html" class="menu-link">
-            <div data-i18n="Menu 1">menu 1</div>
+          <a href="roles_usuario.php" class="menu-link">
+            <div data-i18n="Rol y Permisos">Rol y Permisos</div>
           </a>
         </li>
         <li class="menu-item">
