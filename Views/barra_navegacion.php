@@ -8,7 +8,6 @@
   <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
     <ul class="navbar-nav flex-row align-items-center ms-auto">
 
-      <!-- Estilos (opcional) -->
       <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
         <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
           <i class="ti ti-md"></i>
@@ -20,7 +19,6 @@
         </ul>
       </li>
 
-      <!-- USUARIO -->
       <li class="nav-item navbar-dropdown dropdown-user dropdown">
         <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
           <div class="avatar avatar-online">
@@ -38,7 +36,11 @@
                 </div>
                 <div class="flex-grow-1">
                   <span class="fw-medium d-block">
-                    <?php echo $_SESSION['nombre_compleo'] ?? $_SESSION['nombre_usuario'] ?? 'Usuario'; ?>
+                    <?php
+                    // CORRECCIÓN CLAVE: Usamos 'nombre_completo' y 'empleado' como fallbacks
+                    // Asegúrate de que $rspta['name'] en el controlador llena $_SESSION['nombre_completo']
+                    echo htmlspecialchars($_SESSION['nombre_completo'] ?? $_SESSION['empleado'] ?? 'Usuario');
+                    ?>
                   </span>
                   <?php
                   if (isset($_SESSION['rol']) && !empty(trim($_SESSION['rol']))) {
@@ -75,12 +77,9 @@
           </li>
         </ul>
       </li>
-      <!-- /USUARIO -->
-
-    </ul>
+      </ul>
   </div>
 
-  <!-- Buscador en pantallas pequeñas -->
   <div class="navbar-search-wrapper search-input-wrapper d-none">
     <input type="text" class="form-control search-input container-xxl border-0" placeholder="Buscar..." aria-label="Buscar..." />
     <i class="ti ti-x ti-sm search-toggler cursor-pointer"></i>
