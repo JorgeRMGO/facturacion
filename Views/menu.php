@@ -28,13 +28,18 @@
       </a>
       <ul class="menu-sub">
         <li class="menu-item">
-          <a href="layouts-collapsed-menu.html" class="menu-link">
+          <a href="../Views/crear_usuario.php" class="menu-link">
             <div data-i18n="Crear Usuario">Crear Usuario</div>
           </a>
         </li>
         <li class="menu-item">
           <a href="layouts-content-navbar.html" class="menu-link">
-            <div data-i18n="Menu 2">menu 2</div>
+            <div data-i18n="Roles">Roles</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="layouts-content-navbar.html" class="menu-link">
+            <div data-i18n="Permisos">Tipo Usuario</div>
           </a>
         </li>
       </ul>
@@ -42,8 +47,8 @@
     <!-- Dropdown Menu -->
     <li class="menu-item">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
-        <div data-i18n="Usuarios">Usuario</div>
+        <i class="menu-icon tf-icons ti ti-settings"></i>
+        <div data-i18n="Administracion">Administracion</div>
       </a>
       <ul class="menu-sub">
         <li class="menu-item">
@@ -54,6 +59,11 @@
         <li class="menu-item">
           <a href="layouts-content-navbar.html" class="menu-link">
             <div data-i18n="Menu 2">menu 2</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="layouts-content-navbar.html" class="menu-link">
+            <div data-i18n="Menu 3">menu 3</div>
           </a>
         </li>
       </ul>

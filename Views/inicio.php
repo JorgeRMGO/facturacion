@@ -8,30 +8,17 @@ if (!isset($_SESSION['usuario_id'])) {
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-navbar-fixed layout-menu-fixed layout-compact" dir="ltr"
     data-theme="theme-default" data-assets-path="../librerias/assets/" data-template="vertical-menu-template">
-<!-- header -->
 <?php require_once('header.php'); ?>
 <link rel="stylesheet" href="../librerias/assets/css/styles.css">
 
-<!-- / header -->
-
 <body>
     <div id="particles-js"></div>
-    <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
-            <!-- Menu -->
             <?php require_once('menu.php'); ?>
-            <!-- / Menu -->
-
-            <!-- Layout container -->
             <div class="layout-page">
-                <!-- Barra de Navegación -->
                 <?php require_once('barra_navegacion.php'); ?>
-                <!-- / Barra de Navegación -->
-
-                <!-- Content wrapper -->
                 <div class="content-wrapper">
-                    <!-- Content -->
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="py-3 mb-2 welcome-message">
                             <h4>
@@ -42,7 +29,6 @@ if (!isset($_SESSION['usuario_id'])) {
                                 </div>
                             </h4>
                             <div class="app-billing">
-                                <!-- Banner Principal -->
                                 <div class="card p-0 mb-4">
                                     <div class="card-body d-flex flex-column flex-md-row justify-content-between p-0 pt-4">
                                         <div class="app-billing-md-25 card-body py-0">
@@ -69,7 +55,6 @@ if (!isset($_SESSION['usuario_id'])) {
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Usuarios en línea -->
                                 <div class="row gy-4 mb-4">
                                     <div class="col-lg-6">
                                         <div class="card card-border-shadow-success text-center">
@@ -80,7 +65,6 @@ if (!isset($_SESSION['usuario_id'])) {
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- Hora actual -->
                                     <div class="col-lg-6">
                                         <div class="card card-border-shadow-info text-center">
                                             <div class="card-body">
@@ -93,7 +77,6 @@ if (!isset($_SESSION['usuario_id'])) {
                                 </div>
 
 
-                                <!-- Funcionalidades Principales -->
                                 <div class="row gy-4 mb-4">
                                     <div class="col-lg-6">
                                         <div class="card bg-label-primary h-100">
@@ -141,7 +124,6 @@ if (!isset($_SESSION['usuario_id'])) {
                                     </div>
                                 </div>
 
-                                <!-- Estadísticas Rápidas -->
                                 <div class="card mb-4">
                                     <div class="card-body row gy-4">
                                         <div class="col-sm-6 col-lg-4 text-center">
@@ -162,7 +144,6 @@ if (!isset($_SESSION['usuario_id'])) {
                                     </div>
                                 </div>
 
-                                <!-- Llamada a la Acción Final -->
                                 <div class="card">
                                     <div class="card-body text-center">
                                         <h3 class="card-title mb-3">¿Listo para Optimizar tu Facturación?</h3>
@@ -174,29 +155,17 @@ if (!isset($_SESSION['usuario_id'])) {
                                 </div>
                             </div>
                         </div>
-                        <!-- / Content -->
-                    </div>
-                    <!-- / Content wrapper -->
-                    <!-- Footer -->
+                        </div>
                     <?php require_once('footer.php'); ?>
-                    <!-- / Footer -->
-
                     <div class="content-backdrop fade"></div>
                 </div>
-                <!-- Content wrapper -->
+                </div>
             </div>
-            <!-- / Layout page -->
-        </div>
 
-        <!-- Overlay -->
         <div class="layout-overlay layout-menu-toggle"></div>
 
-        <!-- Drag Target Area To SlideIn Menu On Small Screens -->
         <div class="drag-target"></div>
     </div>
-    <!-- / Layout wrapper -->
-    <!-- Core JS -->
-
     <script src="../librerias/assets/vendor/libs/node-waves/node-waves.js"></script>
     <script src="../librerias/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
     <script src="../librerias/assets/vendor/libs/hammer/hammer.js"></script>
@@ -205,18 +174,14 @@ if (!isset($_SESSION['usuario_id'])) {
     <script src="../librerias/assets/vendor/js/menu.js"></script>
 
 
-    <!-- Script de particles.js -->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
 
-    <!-- Vendors JS -->
     <script src="../librerias/assets/vendor/libs/select2/select2.js"></script>
     <script src="../librerias/assets/vendor/libs/plyr/plyr.js"></script>
 
-    <!-- Main JS -->
     <script src="../librerias/assets/js/main.js"></script>
 
-    <!-- Page JS -->
     <script src="../librerias/assets/js/app-academy-course.js"></script>
 
     <script>

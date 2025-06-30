@@ -205,7 +205,7 @@ async function login() {
         });
 
         const text = await response.text(); // Obtener respuesta como texto para depuración
-        console.log("Respuesta del servidor:", text); // Mostrar en consola para depurar
+        //console.log("Respuesta del servidor:", text); // Mostrar en consola para depurar
 
         try {
             const data = JSON.parse(text); // Intentar parsear como JSON
