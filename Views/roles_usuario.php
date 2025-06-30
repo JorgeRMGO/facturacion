@@ -5,12 +5,19 @@ if (!isset($_SESSION['usuario_id'])) {
     exit();
 }
 $title = "Roles";
-require_once '../config/Conexion.php'; // Ajusta la ruta si es necesario
+require_once '../config/Conexion.php';
+try {
+    $db = new Database();
+    $conn = $db->getConnection();
+} catch (PDOException $e) {
+    die("Error de conexión: " . $e->getMessage());
+}
 ?>
 <!DOCTYPE html>
 <html lang="es" class="light-style layout-navbar-fixed layout-menu-fixed layout-compact" dir="ltr" data-theme="theme-default" data-assets-path="../librerias/assets/" data-template="vertical-menu-template">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $title; ?></title>
     <!-- CSS -->
     <link rel="stylesheet" href="../librerias/assets/vendor/css/core.css" />
@@ -40,14 +47,14 @@ require_once '../config/Conexion.php'; // Ajusta la ruta si es necesario
             border-radius: 10px;
         }
     </style>
-    <?php require_once('header.php'); ?>
+    <?php require_once 'header.php'; ?>
 </head>
 <body>
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
-            <?php require_once('menu.php'); ?>
+            <?php require_once 'menu.php'; ?>
             <div class="layout-page">
-                <?php require_once('barra_navegacion.php'); ?>
+                <?php require_once 'barra_navegacion.php'; ?>
                 <div class="content-wrapper">
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="row">
@@ -97,36 +104,44 @@ require_once '../config/Conexion.php'; // Ajusta la ruta si es necesario
                                             <div class="col-md-12 mt-3">
                                                 <label>Permisos por Módulo</label>
                                                 <?php
-                                                $stmt = $conn->query("SELECT modulo_name FROM modulos");
-                                                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                                    $modulo = $row['modulo_name'];
-                                                    echo "<div class='mb-2'>";
-                                                    echo "<strong>Módulo: $modulo</strong>";
-                                                    echo "<div class='form-check'>";
-                                                    echo "<input type='checkbox' class='form-check-input' name='permisos[$modulo][vista]' value='1'>";
-                                                    echo "<label class='form-check-label'>Ver</label>";
-                                                    echo "</div>";
-                                                    echo "<div class='form-check'>";
-                                                    echo "<input type='checkbox' class='form-check-input' name='permisos[$modulo][crear]' value='1'>";
-                                                    echo "<label class='form-check-label'>Crear</label>";
-                                                    echo "</div>";
-                                                    echo "<div class='form-check'>";
-                                                    echo "<input type='checkbox' class='form-check-input' name='permisos[$modulo][editar]' value='1'>";
-                                                    echo "<label class='form-check-label'>Editar</label>";
-                                                    echo "</div>";
-                                                    echo "<div class='form-check'>";
-                                                    echo "<input type='checkbox' class='form-check-input' name='permisos[$modulo][eliminar]' value='1'>";
-                                                    echo "<label class='form-check-label'>Eliminar</label>";
-                                                    echo "</div>";
-                                                    echo "<div class='form-check'>";
-                                                    echo "<input type='checkbox' class='form-check-input' name='permisos[$modulo][aprobar]' value='1'>";
-                                                    echo "<label class='form-check-label'>Aprobar</label>";
-                                                    echo "</div>";
-                                                    echo "<div class='form-check'>";
-                                                    echo "<input type='checkbox' class='form-check-input' name='permisos[$modulo][validar]' value='1'>";
-                                                    echo "<label class='form-check-label'>Validar</label>";
-                                                    echo "</div>";
-                                                    echo "</div>";
+                                                try {
+                                                    $stmt = $conn->query("SELECT modulo_name FROM modulos");
+                                                    if ($stmt->rowCount() === 0) {
+                                                        echo "<p>No hay módulos disponibles</p>";
+                                                    } else {
+                                                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                                            $modulo = htmlspecialchars($row['modulo_name']);
+                                                            echo "<div class='mb-2'>";
+                                                            echo "<strong>Módulo: $modulo</strong>";
+                                                            echo "<div class='form-check'>";
+                                                            echo "<input type='checkbox' class='form-check-input' name='permisos[$modulo][vista]' value='1'>";
+                                                            echo "<label class='form-check-label'>Ver</label>";
+                                                            echo "</div>";
+                                                            echo "<div class='form-check'>";
+                                                            echo "<input type='checkbox' class='form-check-input' name='permisos[$modulo][crear]' value='1'>";
+                                                            echo "<label class='form-check-label'>Crear</label>";
+                                                            echo "</div>";
+                                                            echo "<div class='form-check'>";
+                                                            echo "<input type='checkbox' class='form-check-input' name='permisos[$modulo][editar]' value='1'>";
+                                                            echo "<label class='form-check-label'>Editar</label>";
+                                                            echo "</div>";
+                                                            echo "<div class='form-check'>";
+                                                            echo "<input type='checkbox' class='form-check-input' name='permisos[$modulo][eliminar]' value='1'>";
+                                                            echo "<label class='form-check-label'>Eliminar</label>";
+                                                            echo "</div>";
+                                                            echo "<div class='form-check'>";
+                                                            echo "<input type='checkbox' class='form-check-input' name='permisos[$modulo][aprobar]' value='1'>";
+                                                            echo "<label class='form-check-label'>Aprobar</label>";
+                                                            echo "</div>";
+                                                            echo "<div class='form-check'>";
+                                                            echo "<input type='checkbox' class='form-check-input' name='permisos[$modulo][validar]' value='1'>";
+                                                            echo "<label class='form-check-label'>Validar</label>";
+                                                            echo "</div>";
+                                                            echo "</div>";
+                                                        }
+                                                    }
+                                                } catch (PDOException $e) {
+                                                    echo "<div class='alert alert-danger'>Error al cargar módulos: " . $e->getMessage() . "</div>";
                                                 }
                                                 ?>
                                             </div>
@@ -140,7 +155,7 @@ require_once '../config/Conexion.php'; // Ajusta la ruta si es necesario
                             </div>
                         </div>
                     </div>
-                    <?php require_once('footer.php'); ?>
+                    <?php require_once 'footer.php'; ?>
                     <div class="content-backdrop fade"></div>
                 </div>
             </div>
@@ -164,12 +179,32 @@ require_once '../config/Conexion.php'; // Ajusta la ruta si es necesario
     <script>
         var tabla;
         $(document).ready(function() {
+            console.log("Inicializando roles_usuarios.php");
             listar();
+            // Activar el ítem del menú
+            const menuItem = document.querySelector('a[href="roles_usuarios.php"]');
+            if (menuItem) {
+                menuItem.parentElement.classList.add('active');
+                const menuToggle = document.querySelector('a[href="admin"]');
+                if (menuToggle) menuToggle.parentElement.classList.add('open');
+            }
         });
 
-        var token = localStorage.getItem("jwt_token");
+        var token = localStorage.getItem("jwt_token") || "<?php echo isset($_SESSION['jwt_token']) ? $_SESSION['jwt_token'] : ''; ?>";
 
         const listar = () => {
+            console.log("Inicializando DataTables");
+            if (!token) {
+                Swal.fire({
+                    title: "Error",
+                    text: "No se encontró el token de autenticación. Por favor, inicia sesión nuevamente.",
+                    icon: "error"
+                }).then(() => {
+                    window.location.href = 'login.php';
+                });
+                return;
+            }
+
             if ($.fn.DataTable.isDataTable('#tbllistado')) {
                 $('#tbllistado').DataTable().ajax.reload();
                 return;
@@ -186,7 +221,7 @@ require_once '../config/Conexion.php'; // Ajusta la ruta si es necesario
                     },
                     dataType: "json",
                     error: (e) => {
-                        console.log(e.responseText);
+                        console.log("Error en AJAX:", e.responseText);
                         Swal.fire({
                             title: "Error",
                             text: "No se pudo cargar la tabla. Verifica el token o la conexión.",
@@ -240,19 +275,27 @@ require_once '../config/Conexion.php'; // Ajusta la ruta si es necesario
                     contentType: false,
                     processData: false,
                     success: function(response) {
-                        response = JSON.parse(response);
-                        Swal.close();
-                        if (response.success) {
-                            messageDiv.classList.remove('d-none', 'alert-danger');
-                            messageDiv.classList.add('alert-success');
-                            messageDiv.textContent = response.message;
-                            form.reset();
-                            setTimeout(() => $('#modal').modal('hide'), 1000);
-                            tabla.ajax.reload();
-                        } else {
+                        try {
+                            response = JSON.parse(response);
+                            Swal.close();
+                            if (response.success) {
+                                messageDiv.classList.remove('d-none', 'alert-danger');
+                                messageDiv.classList.add('alert-success');
+                                messageDiv.textContent = response.message;
+                                form.reset();
+                                setTimeout(() => $('#modal').modal('hide'), 1000);
+                                tabla.ajax.reload();
+                            } else {
+                                messageDiv.classList.remove('d-none', 'alert-success');
+                                messageDiv.classList.add('alert-danger');
+                                messageDiv.textContent = response.message || 'Error al guardar el rol';
+                            }
+                        } catch (e) {
+                            Swal.close();
                             messageDiv.classList.remove('d-none', 'alert-success');
                             messageDiv.classList.add('alert-danger');
-                            messageDiv.textContent = response.message;
+                            messageDiv.textContent = 'Error en la respuesta del servidor';
+                            console.error("Error al parsear respuesta:", e);
                         }
                     },
                     error: function(error) {
@@ -260,7 +303,7 @@ require_once '../config/Conexion.php'; // Ajusta la ruta si es necesario
                         messageDiv.classList.remove('d-none', 'alert-success');
                         messageDiv.classList.add('alert-danger');
                         messageDiv.textContent = 'Error al guardar el rol';
-                        console.error("Error:", error);
+                        console.error("Error en AJAX:", error);
                     }
                 });
             } else {
@@ -290,6 +333,8 @@ require_once '../config/Conexion.php'; // Ajusta la ruta si es necesario
                         didOpen: () => {
                             Swal.showLoading();
                         }
+                    
+                    
                     });
                     $.ajax({
                         url: '../Controllers/rolesUsuarioController.php?op=delete',
@@ -299,21 +344,31 @@ require_once '../config/Conexion.php'; // Ajusta la ruta si es necesario
                         },
                         data: { id_registro: id },
                         success: function(response) {
-                            response = JSON.parse(response);
-                            Swal.close();
-                            if (response.success) {
-                                Swal.fire({
-                                    title: "Éxito",
-                                    text: response.message,
-                                    icon: "success"
-                                });
-                                tabla.ajax.reload();
-                            } else {
+                            try {
+                                response = JSON.parse(response);
+                                Swal.close();
+                                if (response.success) {
+                                    Swal.fire({
+                                        title: "Éxito",
+                                        text: response.message,
+                                        icon: "success"
+                                    });
+                                    tabla.ajax.reload();
+                                } else {
+                                    Swal.fire({
+                                        title: "Error",
+                                        text: response.message || 'Error al eliminar el rol',
+                                        icon: "error"
+                                    });
+                                }
+                            } catch (e) {
+                                Swal.close();
                                 Swal.fire({
                                     title: "Error",
-                                    text: response.message,
+                                    text: "Error en la respuesta del servidor",
                                     icon: "error"
                                 });
+                                console.error("Error al parsear respuesta:", e);
                             }
                         },
                         error: function(xhr, status, error) {
@@ -323,7 +378,7 @@ require_once '../config/Conexion.php'; // Ajusta la ruta si es necesario
                                 text: "Ocurrió un error al eliminar el rol.",
                                 icon: "error"
                             });
-                            console.error('Error:', error);
+                            console.error("Error en AJAX:", error);
                         }
                     });
                 }
