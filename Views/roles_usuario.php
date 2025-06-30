@@ -333,6 +333,8 @@ try {
                         didOpen: () => {
                             Swal.showLoading();
                         }
+                    
+                    
                     });
                     $.ajax({
                         url: '../Controllers/rolesUsuarioController.php?op=delete',
