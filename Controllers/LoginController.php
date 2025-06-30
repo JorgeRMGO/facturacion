@@ -1,13 +1,11 @@
 <?php
 ob_start();
 require_once "../Models/Login.php";
-require_once "../Controllers/token.php"; // ¡Asegúrate de que esta ruta sea correcta!
+require_once "../Controllers/token.php"; // Asegúrate de que esta ruta sea válida
 
 $jwt_secret = "Mx2111or71zG0";
 
-// NOTA: No ponemos header JSON global porque logout necesita redirección
-// Solo lo ponemos en el caso de login (validar)
-
+// Solo se usa JSON en caso de login exitoso
 $login = new Login();
 $usuario = $_POST['usuario'] ?? '';
 $password = $_POST['password'] ?? '';
@@ -25,6 +23,16 @@ switch ($_GET["op"]) {
 
         if ($rspta !== 404) {
             if (password_verify($password, $rspta['password'])) {
+
+                // ✅ Aquí se setean las variables de sesión
+                $_SESSION['usuario_id'] = $rspta['id'];
+                $_SESSION['username'] = $rspta['username'];
+                $_SESSION['empleado'] = $rspta['empleado'];
+                $_SESSION['rol'] = $rspta['rol'];
+                $_SESSION['id_empleado'] = $rspta['id_empleado'];
+                $_SESSION['id_planta'] = $rspta['branch_office_id'];
+
+                // JWT opcional si usas APIs también
                 $userDataForToken = [
                     'id' => $rspta['id'],
                     'username' => $rspta['username'],
@@ -76,7 +84,6 @@ switch ($_GET["op"]) {
         break;
 
     case 'salir':
-        // Logout SIN encabezados JSON para permitir redirección
         session_start();
         $_SESSION = array();
         if (ini_get("session.use_cookies")) {

@@ -124,18 +124,18 @@ if (!isset($_SESSION['usuario_id'])) {
         <div class="drag-target"></div>
     </div>
 
-    <!-- Scripts esenciales -->
-    <script src="../librerias/assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="../librerias/assets/vendor/libs/bootstrap/bootstrap.js"></script>
-    <script src="../librerias/assets/vendor/libs/node-waves/node-waves.js"></script>
-    <script src="../librerias/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="../librerias/assets/vendor/libs/hammer/hammer.js"></script>
-    <script src="../librerias/assets/vendor/libs/i18n/i18n.js"></script>
-    <script src="../librerias/assets/vendor/libs/typeahead-js/typeahead.js"></script>
-    <script src="../librerias/assets/vendor/libs/select2/select2.js"></script>
-    <script src="../librerias/assets/vendor/libs/plyr/plyr.js"></script>
-    <script src="../librerias/assets/vendor/js/menu.js"></script>
-    <script src="../librerias/assets/js/main.js"></script>
+        <!-- Scripts esenciales -->
+        <script src="../librerias/assets/vendor/libs/jquery/jquery.js"></script>
+        <script src="../librerias/assets/vendor/libs/bootstrap/bootstrap.js"></script>
+        <script src="../librerias/assets/vendor/libs/node-waves/node-waves.js"></script>
+        <script src="../librerias/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+        <script src="../librerias/assets/vendor/libs/hammer/hammer.js"></script>
+        <script src="../librerias/assets/vendor/libs/i18n/i18n.js"></script>
+        <script src="../librerias/assets/vendor/libs/typeahead-js/typeahead.js"></script>
+        <script src="../librerias/assets/vendor/libs/select2/select2.js"></script>
+        <script src="../librerias/assets/vendor/libs/plyr/plyr.js"></script>
+        <script src="../librerias/assets/vendor/js/menu.js"></script>
+        <script src="../librerias/assets/js/main.js"></script>
 
     <!-- Script propio de esta página -->
     <script src="scripts/permisos.js"></script>
