@@ -314,7 +314,7 @@
       }
     }
 
-    /* Estilos para el mensaje de bienvenida */
+   /* Estilos para el mensaje de bienvenida - Versión naranja */
 .welcome-container {
     position: relative;
     font-size: 1.5rem;
@@ -341,16 +341,14 @@
 }
 
 .welcome-username {
-    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: var(--primary-color); /* Solo naranja */
     font-weight: 700;
     padding: 0.2rem 0.5rem;
     border-radius: 8px;
     position: relative;
     display: inline-block;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    /* Mantenemos la animación del subrayado */
 }
 
 .welcome-username::after {
@@ -361,11 +359,12 @@
     transform: translateX(-50%);
     width: 80%;
     height: 3px;
-    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    background: var(--primary-color); /* Subrayado naranja sólido */
     border-radius: 3px;
     animation: underlinePulse 3s infinite;
 }
 
+/* Animaciones (se mantienen igual) */
 @keyframes bounce {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-5px); }
