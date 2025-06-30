@@ -52,8 +52,13 @@
       </a>
       <ul class="menu-sub">
         <li class="menu-item">
+<<<<<<< HEAD
           <a href="roles_usuario.php" class="menu-link">
             <div data-i18n="Rol y Permisos">Rol y Permisos</div>
+=======
+          <a href="roles_usuarios.php" class="menu-link">
+            <div data-i18n="Roles y Permisos">Roles y Permisos</div>
+>>>>>>> 5a079e194469e7217fb04c0d835fb0cb8b1e8962
           </a>
         </li>
         <li class="menu-item">
