@@ -11,11 +11,8 @@ if (!isset($_SESSION['usuario_id'])) {
 <?php require_once('header.php'); ?>
 <link rel="stylesheet" href="../librerias/assets/css/styles.css">
 
-<<<<<<< HEAD
-=======
 <!--header -->
 
->>>>>>> 5a079e194469e7217fb04c0d835fb0cb8b1e8962
 <body>
     <div id="particles-js"></div>
     <div class="layout-wrapper layout-content-navbar">
