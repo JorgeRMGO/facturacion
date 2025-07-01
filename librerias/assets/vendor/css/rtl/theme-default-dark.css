@@ -84,7 +84,7 @@ body {
 }
 
 .text-primary {
-  color: #7367f0 !important;
+  color: #f07d42 !important;
 }
 
 .text-body[href]:hover {
@@ -1347,7 +1347,7 @@ li.ui-timepicker-selected,
 
 .bg-menu-theme {
   background-color: #2f3349 !important;
-  color: #b6bee3;
+  color: #f07d42;
 }
 .bg-menu-theme.menu-horizontal {
   background-color: rgba(47, 51, 73, 0.95) !important;
@@ -1362,12 +1362,12 @@ li.ui-timepicker-selected,
 .bg-menu-theme .menu-horizontal-prev:focus,
 .bg-menu-theme .menu-horizontal-next:hover,
 .bg-menu-theme .menu-horizontal-next:focus {
-  color: #cfd3ec;
+  color: #f07d42;/*al seleccionar con el cusor*/
 }
 .bg-menu-theme .menu-link.active,
 .bg-menu-theme .menu-horizontal-prev.active,
 .bg-menu-theme .menu-horizontal-next.active {
-  color: #cfd3ec;
+  color: #cfd3ec;     
 }
 .bg-menu-theme .menu-item.disabled .menu-link,
 .bg-menu-theme .menu-horizontal-prev.disabled,

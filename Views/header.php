@@ -4,12 +4,12 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>eCommerce Category List - Apps | Vuexy - Bootstrap Admin Template</title>
+    <title>Facturacion </title>
 
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../librerias/assets/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/png" href="../librerias/img/logo.png">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

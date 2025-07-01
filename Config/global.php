@@ -14,7 +14,7 @@ define("DB_PASSWORD", "hh2a0kngyo7epjboc9rl");
 //codificacion de caracteres
 define("DB_ENCODE", "utf8");
 
-define('DB_PORT', 3306); // El puerto local redirigido
+define('DB_PORT', 3307); // El puerto local redirigido
 
 ?>
 

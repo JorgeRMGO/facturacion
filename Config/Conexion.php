@@ -16,6 +16,13 @@ if (!function_exists('ejecutarConsulta')) {
 		global $conexion;
 		$query=$conexion->query($sql);
 		return $query;
+	//verificar si consulta fallo
+	if($query){
+		echo "Error en la consulta". $conexion->error;
+		return false;
+
+		}
+		return $query;
 	} 
 
 	function ejecutarConsultaSimpleFila($sql){
