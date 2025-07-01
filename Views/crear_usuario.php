@@ -8,9 +8,12 @@ if (!isset($_SESSION['usuario_id'])) {
 <!DOCTYPE html>
 <html lang="es" class="light-style layout-navbar-fixed layout-menu-fixed layout-compact" dir="ltr"
     data-theme="theme-default" data-assets-path="../librerias/assets/" data-template="vertical-menu-template">
+
 <head>
     <meta charset="UTF-8">
     <title>Crear usuario</title>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 
     <!-- Librerías de estilos principales -->
     <link rel="stylesheet" href="../librerias/assets/vendor/css/core.css" />
@@ -22,6 +25,7 @@ if (!isset($_SESSION['usuario_id'])) {
 
     <?php require_once('header.php'); ?>
 </head>
+
 <body>
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
@@ -51,16 +55,12 @@ if (!isset($_SESSION['usuario_id'])) {
                                         <table class="dt-responsive table table-striped" id="tbllistado">
                                             <thead>
                                                 <tr>
-                                                    <th style="width: 300px;">Acciones</th>
                                                     <th>#</th>
                                                     <th>Rol</th>
                                                     <th>Vista</th>
                                                     <th>Modulo</th>
-                                                    <th>Crear</th>
                                                     <th>Editar</th>
                                                     <th>Eliminar</th>
-                                                    <th>Aprobar</th>
-                                                    <th>Validar</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
@@ -80,6 +80,7 @@ if (!isset($_SESSION['usuario_id'])) {
                                 </div>
                                 <div class="modal-body">
                                     <form id="createUserForm">
+                                        <input type="hidden" id="id" name="id">
                                         <div class="mb-3">
                                             <label for="name" class="form-label">Nombre</label>
                                             <input type="text" class="form-control" id="name" name="name" required>
@@ -123,60 +124,147 @@ if (!isset($_SESSION['usuario_id'])) {
         <div class="drag-target"></div>
     </div>
 
-        <!-- Scripts esenciales -->
-        <script src="../librerias/assets/vendor/libs/jquery/jquery.js"></script>
-        <script src="../librerias/assets/vendor/libs/bootstrap/bootstrap.js"></script>
-        <script src="../librerias/assets/vendor/libs/node-waves/node-waves.js"></script>
-        <script src="../librerias/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-        <script src="../librerias/assets/vendor/libs/hammer/hammer.js"></script>
-        <script src="../librerias/assets/vendor/libs/i18n/i18n.js"></script>
-        <script src="../librerias/assets/vendor/libs/typeahead-js/typeahead.js"></script>
-        <script src="../librerias/assets/vendor/libs/select2/select2.js"></script>
-        <script src="../librerias/assets/vendor/libs/plyr/plyr.js"></script>
-        <script src="../librerias/assets/vendor/js/menu.js"></script>
-        <script src="../librerias/assets/js/main.js"></script>
+    <!-- Scripts esenciales -->
+    <script src="../librerias/assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../librerias/assets/vendor/libs/bootstrap/bootstrap.js"></script>
+    <script src="../librerias/assets/vendor/libs/node-waves/node-waves.js"></script>
+    <script src="../librerias/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../librerias/assets/vendor/libs/hammer/hammer.js"></script>
+    <script src="../librerias/assets/vendor/libs/i18n/i18n.js"></script>
+    <script src="../librerias/assets/vendor/libs/typeahead-js/typeahead.js"></script>
+    <script src="../librerias/assets/vendor/libs/select2/select2.js"></script>
+    <script src="../librerias/assets/vendor/libs/plyr/plyr.js"></script>
+    <script src="../librerias/assets/vendor/js/menu.js"></script>
+    <script src="../librerias/assets/js/main.js"></script>
 
-    <!-- Script propio de esta página -->
+    <!-- Script propio de esta página
     <script src="scripts/permisos.js"></script>
-
+     -->
     <!-- Script para manejar el formulario -->
-    <script>
-        function submitUserForm() {
-            const form = document.getElementById('createUserForm');
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirm_password').value;
 
-            if (password !== confirmPassword) {
-                alert('Las contraseñas no coinciden');
-                return;
+    <!-- DataTables JS  -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <script>
+    function submitUserForm() {
+    const form = document.getElementById('createUserForm');
+    const password = document.getElementById('password')?.value || '';
+    const confirmPassword = document.getElementById('confirm_password')?.value || '';
+
+    if (password !== confirmPassword) {
+        alert('Las contraseñas no coinciden');
+        return;
+    }
+
+    if (form.checkValidity()) {
+        const formData = new FormData(form);
+
+        fetch('../Controllers/UsuariosController.php?op=crear', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())  // <-- Mostrar texto crudo
+        .then(text => {
+            console.log('Respuesta del servidor:', text);
+            try {
+                const data = JSON.parse(text);
+                if (data.success) {
+                    alert('Usuario creado exitosamente');
+                    $('#createUserModal').modal('hide');
+                    form.reset();
+                    $('#tbllistado').DataTable().ajax.reload();
+                } else {
+                    alert('Error al crear usuario: ' + data.message);
+                }
+            } catch (e) {
+                console.error('Respuesta no es JSON válido:', e);
+                alert('Error en la respuesta del servidor: ' + text);
             }
-            
-            if (form.checkValidity()) {
-                const formData = new FormData(form);
-                fetch('crear_usuario.php', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Usuario creado exitosamente');
-                        $('#createUserModal').modal('hide');
-                        form.reset();
-                        // Opcional: recargar la tabla de permisos si es necesario
-                        // $('#tbllistado').DataTable().ajax.reload();
-                    } else {
-                        alert('Error al crear usuario: ' + data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Ocurrió un error al procesar la solicitud');
+        })
+        .catch(error => {
+            console.error('Error en la solicitud:', error);
+            alert('Ocurrió un error al procesar la solicitud');
+        });
+    } else {
+        form.reportValidity();
+    }
+}
+
+
+</script>
+        <script>
+            $(document).ready(function() {
+                const table = $('#tbllistado').DataTable({
+                    ajax: {
+                        url: '../Controllers/UsuariosController.php?op=listar',
+                        type: 'GET',
+                        dataType: 'json'
+                    },
+                    columns: [{
+                            data: 'id'},
+                        {
+                            data: 'rol'},
+                        {
+                            data: 'username'},
+                        {
+                            data: 'email'},
+                        {
+                            data: null,
+                            render: function() {
+                                return `<button class="btn btn-sm btn-warning btn-edit">Editar</button>`;
+                            }
+                        },
+                        {
+                            data: null,
+                            render: function() {
+                                return `<button class="btn btn-sm btn-danger btn-delete">Eliminar</button>`;
+                            }
+                        }
+                    ]
                 });
-            } else {
-                form.reportValidity();
-            }
-        }
+
+                // Editar
+                $('#tbllistado tbody').on('click', '.btn-edit', function() {
+                    const data = table.row($(this).parents('tr')).data();
+                    fetch(`../Controllers/UsuariosController.php?op=obtener&id=${data.id}`)
+                        .then(r => r.json())
+                        .then(user => {
+                            $('#id').val(user.id);
+                            $('#name').val(user.full_name);
+                            $('#username').val(user.username);
+                            $('#employee_code').val(user.employee_code);
+                            $('#email').val(user.email);
+                            $('#password, #confirm_password').val('');
+                            $('#createUserModal').modal('show');
+                        });
+                });
+
+                // Eliminar
+                $('#tbllistado tbody').on('click', '.btn-delete', function() {
+                    const data = table.row($(this).parents('tr')).data();
+                    if (confirm(`¿Deseas eliminar al usuario ${data.username}?`)) {
+                        fetch('../Controllers/UsuariosController.php?op=eliminar', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/x-www-form-urlencoded'
+                                },
+                                body: `id=${data.id}`
+                            })
+                            .then(r => r.json())
+                            .then(res => {
+                                if (res.success) {
+                                    alert('Usuario eliminado');
+                                    table.ajax.reload();
+                                } else {
+                                    alert('No se pudo eliminar');
+                                }
+                            });
+                    }
+                });
+            });
     </script>
+
+
 </body>
+
 </html>
