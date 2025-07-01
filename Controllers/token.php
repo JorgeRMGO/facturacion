@@ -1,40 +1,32 @@
-<?php
-// Controllers/token.php
-
-require_once __DIR__ . '/../vendor/autoload.php';
-
+<?php 
+require_once(__DIR__ . '/../vendor/autoload.php');
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
-use Firebase\JWT\ExpiredException;
-//use Exception;
 
-$jwt_secret = "Mx2111or71zG0";
+$key = "Mx2111or71zG0";
+
+function generarToken($data, $secret) {
+    $issuedAt = time();
+    $expirationTime = $issuedAt + (60 * 60 * 24); // 24 horas
+
+    $payload = array(
+        'iat' => $issuedAt,
+        'exp' => $expirationTime,
+        'data' => $data
+    );
+
+    return JWT::encode($payload, $secret, 'HS256');
+}
 
 function protegerRuta() {
-    global $jwt_secret;
+    global $key;
 
-    // --- CAMBIO AQUÍ: Forma más robusta de obtener el encabezado Authorization ---
-    $authHeader = '';
-    if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
-        $authHeader = $_SERVER['HTTP_AUTHORIZATION'];
-    } elseif (function_exists('apache_request_headers')) {
-        $requestHeaders = apache_request_headers();
-        $authHeader = $requestHeaders['Authorization'] ?? $requestHeaders['authorization'] ?? '';
-    } else {
-        // Fallback para otros entornos, aunque menos común para Authorization
-        foreach ($_SERVER as $name => $value) {
-            if (substr($name, 0, 5) == 'HTTP_') {
-                $headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
-            }
-        }
-        $authHeader = $headers['Authorization'] ?? $headers['authorization'] ?? '';
-    }
-    // --- FIN DEL CAMBIO ---
-
+    $headers = getallheaders();
+    $authHeader = $headers['Authorization'] ?? '';
 
     if (!$authHeader) {
         http_response_code(401);
-        echo json_encode(["error" => "Token no proporcionado", "code" => 401]);
+        echo json_encode(["error" => "Token no proporcionado"]);
         exit();
     }
 
@@ -42,34 +34,20 @@ function protegerRuta() {
 
     if (!$jwt) {
         http_response_code(401);
-        echo json_encode(["error" => "Formato de token inválido. Se esperaba 'Bearer <token>'", "code" => 401]);
+        echo json_encode(["error" => "Token no proporcionado"]);
         exit();
     }
 
     try {
-        $decoded = JWT::decode($jwt, new Key($jwt_secret, 'HS256'));
+        $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
         return (array)$decoded->data;
-    } catch (ExpiredException $e) {
+    } catch (\Firebase\JWT\ExpiredException $e) {
         http_response_code(401);
-        echo json_encode(["error" => "Token expirado", "code" => 401]);
+        echo json_encode(["error" => "Token expirado"]);
         exit();
     } catch (Exception $e) {
         http_response_code(403);
-        echo json_encode(["error" => "Token inválido", "code" => 403]);
+        echo json_encode(["error" => "Token inválido"]);
         exit();
     }
-}
-
-function generarToken($user_data, $jwt_secret) {
-    $expiration_time = time() + (60 * 60 * 24);
-
-    $payload = [
-        'iss' => 'http://tu-app.com',
-        'aud' => 'http://tu-app.com',
-        'iat' => time(),
-        'exp' => $expiration_time,
-        'data' => $user_data
-    ];
-
-    return JWT::encode($payload, $jwt_secret, 'HS256');
 }
