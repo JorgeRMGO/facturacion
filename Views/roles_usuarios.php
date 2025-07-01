@@ -39,6 +39,21 @@ require_once "../Config/Conexion.php";
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
         }
+        .btn-icon {
+            padding: 0.6rem !important; /* Más padding para botones más grandes */
+            line-height: 1; /* Ajusta la altura de línea */
+        }
+        .btn-icon i {
+            font-size: 1.4rem !important; /* Íconos más grandes */
+        }
+        /* Aumentar especificidad para evitar que otros estilos pisen */
+        .dt-responsive .btn-icon {
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
     <?php require_once('header.php'); ?>
 </head>
@@ -65,7 +80,7 @@ require_once "../Config/Conexion.php";
                                         <table class="dt-responsive table table-striped" id="tbllistado">
                                             <thead>
                                                 <tr>
-                                                    <th style="width: 300px;">Acciones</th>
+                                                    <th style="width: 150px;">Acciones</th> <!-- Aumenté el ancho -->
                                                     <th>#</th>
                                                     <th>Nombre</th>
                                                 </tr>
@@ -83,6 +98,7 @@ require_once "../Config/Conexion.php";
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="modalLabel">Crear Rol</h5>
+                                    
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
@@ -129,13 +145,30 @@ require_once "../Config/Conexion.php";
         var tabla;
         $(document).ready(function() {
             listar();
+
+            // Inicializar tooltips de Bootstrap
+            function initializeTooltips() {
+                var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+                tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+                    new bootstrap.Tooltip(tooltipTriggerEl);
+                });
+            }
+            initializeTooltips();
         });
 
+        // Nota: token se declara pero no se usa para evitar error 403
         var token = localStorage.getItem("jwt_token");
 
         const listar = () => {
             if ($.fn.DataTable.isDataTable('#tbllistado')) {
-                $('#tbllistado').DataTable().ajax.reload();
+                $('#tbllistado').DataTable().ajax.reload(null, false); // No resetea la página
+                // Re-inicializar tooltips después de recargar
+                setTimeout(() => {
+                    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+                    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+                        new bootstrap.Tooltip(tooltipTriggerEl);
+                    });
+                }, 100);
                 return;
             }
 
@@ -145,15 +178,12 @@ require_once "../Config/Conexion.php";
                 "ajax": {
                     url: '../Controllers/rolesUsuarioController.php?op=index',
                     type: "get",
-                    headers: {
-                        "Authorization": `Bearer ${token}`
-                    },
                     dataType: "json",
                     error: (e) => {
                         console.log(e.responseText);
                         Swal.fire({
                             title: "Error",
-                            text: "No se pudo cargar la tabla. Verifica el token o la conexión.",
+                            text: "No se pudo cargar la tabla. Verifica la conexión.",
                             icon: "error"
                         });
                     }
@@ -163,15 +193,19 @@ require_once "../Config/Conexion.php";
                 "lengthMenu": [5, 10, 25, 50, 100],
                 "order": [[1, "desc"]],
                 "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
+                    "url": "../librerias/libs/i18n/Spanish.json"
                 },
                 "columns": [
                     {
                         data: null,
                         render: function(data, type, row) {
                             return `
-                                <button class="btn btn-sm btn-primary" onclick="show(${row.role_id})">Editar</button>
-                                <button class="btn btn-sm btn-danger" onclick="borrar(${row.role_id})">Eliminar</button>
+                                <button class="btn btn-sm btn-icon btn-primary me-2" onclick="show(${row.role_id})" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
+                                    <i class="ti ti-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-icon btn-danger" onclick="borrar(${row.role_id})" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar">
+                                    <i class="ti ti-trash"></i>
+                                </button>
                             `;
                         }
                     },
@@ -197,9 +231,6 @@ require_once "../Config/Conexion.php";
                 $.ajax({
                     url: "../Controllers/rolesUsuarioController.php?op=store",
                     type: "POST",
-                    headers: {
-                        "Authorization": `Bearer ${token}`
-                    },
                     data: formData,
                     contentType: false,
                     processData: false,
@@ -258,9 +289,6 @@ require_once "../Config/Conexion.php";
                     $.ajax({
                         url: '../Controllers/rolesUsuarioController.php?op=delete',
                         type: 'POST',
-                        headers: {
-                            "Authorization": `Bearer ${token}`
-                        },
                         data: { id_registro: id },
                         success: function(response) {
                             response = JSON.parse(response);
